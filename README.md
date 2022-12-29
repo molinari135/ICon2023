@@ -33,6 +33,8 @@ Configurazione dei componenti (e.g. API/librerie) utilizzati, ad es. parametri, 
 ### Valutazione
 Paragrafi che richiamino (non spieghino, se standard) le metriche adottate + tabelle sui risultati e loro discussione.
 
+[Torna su](#elenco-argomenti-di-interesse)
+
 ## Argomento 2
 
 ### Sommario
@@ -47,6 +49,8 @@ Configurazione dei componenti (e.g. API/librerie) utilizzati, ad es. parametri, 
 
 ### Valutazione
 Paragrafi che richiamino (non spieghino, se standard) le metriche adottate + tabelle sui risultati e loro discussione.
+
+[Torna su](#elenco-argomenti-di-interesse)
 
 ## Argomento 3
 
@@ -63,6 +67,8 @@ Configurazione dei componenti (e.g. API/librerie) utilizzati, ad es. parametri, 
 ### Valutazione
 Paragrafi che richiamino (non spieghino, se standard) le metriche adottate + tabelle sui risultati e loro discussione.
 
+[Torna su](#elenco-argomenti-di-interesse)
+
 ## Conclusioni
 Un paragrafo che delinei anche possibili sviluppi (per altri gruppi)
 
@@ -70,3 +76,5 @@ Un paragrafo che delinei anche possibili sviluppi (per altri gruppi)
 [1] ...
 [2] ...
 [3] ...
+
+[Torna su](#elenco-argomenti-di-interesse)
