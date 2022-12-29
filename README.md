@@ -1,4 +1,4 @@
-# Consigliatore di birre
+# [ICon] Consigliatore di Birre
 
 ### Gruppo di lavoro
 - [Ester Molinari](https://github.com/burraco135), 716555
