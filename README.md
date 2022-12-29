@@ -14,6 +14,8 @@ Inizialmente, il dominio di interesse del KBS era basato su un dataset di [1.5 m
 ## Sommario
 > Paragrafo sul KBS e su come integri moduli che dimostrino competenze sui diversi argomenti (specificati sotto)
 
+![image](https://user-images.githubusercontent.com/64893048/210015119-e80740d2-9180-405d-906f-51c179d3739d.png)
+
 Il nostro KBS si basa su una ontologia realizzata dall'interpretazione dei dati inseriti da alcuni esperti del dominio che vengono memorizzati sottoforma di database di fatti con le loro regole generali nel Learner. Mediante una interfaccia utente, l'utente può comunicare con il Motore Inferenziale per interrogare il sistema e ricevere una risposta. Ogni risposta verrà sfruttata dal KBS per imparare le preferenze di utenti simili. I dati nella KB vengono sottoposti ad Apprendimento Supervisionato prima di essere inseriti e presentano regole derivate dai risultati dell'Apprendimento probabilistico applicato su di essi.
 
 ## Elenco argomenti di interesse
