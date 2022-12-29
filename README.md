@@ -7,7 +7,9 @@
 ###### AA 2022-2023
 
 ## Introduzione
-Paragrafo sul dominio di interesse
+> Paragrafo sul dominio di interesse
+
+Inizialmente, il dominio di interesse del KBS era basato su un dataset di [1.5 milioni di recensioni di birre](https://www.kaggle.com/datasets/rdoume/beerreviews) per poi essere sostituito da un dataset basato su [profili e valutazioni di birre](https://www.kaggle.com/datasets/ruthgn/beer-profile-and-ratings-data-set), che sfrutta i dati del dataset precedente e un dataset che analizza le [parole contenute nelle recensioni di birre](https://www.kaggle.com/datasets/stephenpolozoff/top-beer-information). Tutti i dataset raccolgono i dati forniti dal sito [BeerAdvocate](https://www.beeradvocate.com/)
 
 ## Sommario
 Paragrafo sul KBS e su come integri moduli che dimostrino competenze sui diversi argomenti (specificati sotto)
