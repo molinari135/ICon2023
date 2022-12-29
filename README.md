@@ -1,8 +1,8 @@
 # Consigliatore di birre
 
 ### Gruppo di lavoro
-- Ester Molinari, 716555
-- Giacomo Signorile, 704897
+- [Ester Molinari](https://github.com/burraco135), 716555
+- [Giacomo Signorile](https://github.com/GiacomoSignorile), 704897
 
 ###### AA 2022-2023
 
