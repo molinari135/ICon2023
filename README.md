@@ -14,9 +14,31 @@ Inizialmente, il dominio di interesse del KBS era basato su un dataset di [1.5 m
 ## Sommario
 > Paragrafo sul KBS e su come integri moduli che dimostrino competenze sui diversi argomenti (specificati sotto)
 
-![image](https://user-images.githubusercontent.com/64893048/210015119-e80740d2-9180-405d-906f-51c179d3739d.png)
-
 Il nostro KBS si basa su una **ontologia** realizzata dall'interpretazione dei dati inseriti da alcuni esperti del dominio che vengono memorizzati sottoforma di **database di fatti** con le loro **regole generali** nel Sistema di learning. Mediante una **interfaccia utente**, l'utente può comunicare con il Motore Inferenziale per interrogare il sistema e ricevere una risposta. Ogni risposta verrà sfruttata dal KBS per imparare le preferenze di utenti simili. I dati nella KB vengono sottoposti ad **Apprendimento Supervisionato** prima di essere inseriti e presentano regole derivate dai risultati dell'**Apprendimento probabilistico** applicato su di essi.
+
+Il nostro dataset `beer_profile_and_ratings.csv` presenta numerose feature non normalizzate o con valori nulli, quindi prima di popolare la KB abbiamo applicato regressione e classificazione lineare per ottenere dei valori utilizzabili dalle regole del KBS. Dopo aver corretto il dataset, abbiamo effettuato una operazione di divisione del dominio in sotto-domini che permettono di ottenere relazioni di sottoinsiemi interrogabili tramite regole Prolog.
+
+La directory `csv` è strutturata nel seguente modo:
+
+```
+|-- csv
+|   |-- beer.csv
+|   |-- brewery.csv
+|   |-- beer_brewery.csv
+|   |-- beer_style.csv
+|   |-- beer_body.csv
+|   |-- beer_alcohol.csv
+|   |-- beer_bitter.csv
+|   |-- beer_sweet.csv
+|   |-- beer_sour.csv
+|   |-- beer_salty.csv
+|   |-- beer_fruits.csv
+|   |-- beer_hoppy.csv
+|   |-- beer_spices.csv
+|   |-- beer_malty.csv
+```
+
+Tutti questi file servono per popolare la KB prima di applicare le regole del KBS.
 
 ## Elenco argomenti di interesse
 - [Apprendimento Supervisionato](#apprendimento-supervisionato)
