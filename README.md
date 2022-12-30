@@ -105,6 +105,26 @@ csv/beer_brewery.csv    % madeby(beer_id,brewery_id)
 csv/style_style.csv     % style(beer_id,style_name
 ```
 
+```prolog
+% FACTS
+beer(beer_id,beer_name).
+brewery(brewery_id,brewery_name).
+madeby(beer_id,brewery_id).
+style(beer_id,style_name).
+beer_mouthfeel(beer_id,astringency,body,alcohol).
+beer_taste(beer_id,sweet,bitter,sour,salty).
+beer_flavour(beer_id,fruits,hoppy,malty,spices).
+
+% RULES
+what_brewery(Beer_name) :- %...
+what_beer(Brewery_name) :- %...
+what_style(Beer_name) :- %...
+what_abv(Beer_name) :- %...
+what_mouthfeel(Beer_name) :- %...
+what_taste(Beer_name) :- %...
+what_flavour(Beer_name) :- %...
+```
+
 ### Strumenti utilizzati
 > Breve: non serve spiegare come funzionano se implementano modelli ben noti (basta indicare dei riferimenti bibliografici)
 Dilungarsi solo su eventuali modelli/algoritmi originali ideati dal gruppo.
