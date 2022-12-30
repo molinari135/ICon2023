@@ -62,6 +62,27 @@ Dilungarsi solo su eventuali modelli/algoritmi originali ideati dal gruppo.
 ### Sommario
 > Un paragrafo che chiarisca la rappresentazione della conoscenza scelta per la KB (modelli di ragionamento/apprendimento), dati, BK, ...
 
+Durante la fase di progettazione della KB avevamo proposto due tipi di rappresentazione dei fatti mediante proposizioni:
+
+```prolog
+% rappresentazione standard
+verbo(soggetto,oggetto).
+
+% rappresentazione classe
+prop(soggetto,verbo,oggetto).
+```
+
+Abbiamo scelto di utilizzare la prima rappresentazione dopo aver consultato il dataset in formato `.csv`. Abbiamo sfruttato la funzione `csv_read_file()` di Prolog insieme alla funzione `maplist()` in modo da popolare la KB senza dover inserire i valori manualmente. Per ottenere delle proposizioni composte da `verbo(soggetto,oggetto)` abbiamo scomposto il `.csv` file composti da 2 colonne, in modo da facilitare l'inserimento nella KB.
+
+Dal punto di vista pratico, Prolog elabora i seguenti file (da aggiornare!):
+
+```prolog
+csv/beer.csv            % beer(beer_id,beer_name)
+csv/brewery.csv         % brewery(brewery_id,brewery_name)
+csv/beer_brewery.csv    % madeby(beer_id,brewery_id)
+csv/style_style.csv     % style(beer_id,style_name
+```
+
 ### Strumenti utilizzati
 > Breve: non serve spiegare come funzionano se implementano modelli ben noti (basta indicare dei riferimenti bibliografici)
 Dilungarsi solo su eventuali modelli/algoritmi originali ideati dal gruppo.
