@@ -8,17 +8,17 @@ use_module(library(csv)).
 :-
     csv_read_file('Prolog/csv/beer_name.csv',Beer,[functor(beer),separator(0';)]),
     maplist(assert,Beer),
-    csv_read_file('Prolog/csv/beer_brewery.csv',Brewery,[functor(brewery),separator(0';)]),
-    maplist(assert,Brewery),
+    csv_read_file('Prolog/csv/style_id.csv',StyleId,[functor(styleid),separator(0';)]),
+    maplist(assert,StyleId),
     csv_read_file('Prolog/csv/beer_style.csv',Style,[functor(style),separator(0';)]),
     maplist(assert,Style),
     csv_read_file('Prolog/csv/beer_abv.csv',Abv,[functor(abv),separator(0';)]),
     maplist(assert,Abv),
-    csv_read_file('Prolog/csv/beer_mouthfeel.csv',MF,[functor(mouthfeel),separator(0';)]),
+    csv_read_file('Prolog/csv/style_mouthfeel.csv',MF,[functor(mouthfeel),separator(0';)]),
     maplist(assert,MF),
-    csv_read_file('Prolog/csv/beer_taste.csv',Taste,[functor(taste),separator(0';)]),
+    csv_read_file('Prolog/csv/style_taste.csv',Taste,[functor(taste),separator(0';)]),
     maplist(assert,Taste),
-    csv_read_file('Prolog/csv/beer_flavour.csv',Flavour,[functor(flavour),separator(0';)]),
+    csv_read_file('Prolog/csv/style_flavour.csv',Flavour,[functor(flavour),separator(0';)]),
     maplist(assert,Flavour),
     csv_read_file('Prolog/csv/beer_review.csv',Review,[functor(review),separator(0';)]),
     maplist(assert,Review).
@@ -32,20 +32,25 @@ use_module(library(csv)).
 %non per forza esclusivi, valutando anche OR
 
 %REGOLE
-what_brewery(Beer_name):-
-    beer(A,Beer_name),
-    brewery(A,Brewery_name),
-    write("Brewery: "),write(Brewery_name).
 
-what_beer(Brewery_name):-
-    brewery(A,Brewery_name),
-    beer(A,Beer_name),
+what_idbeer(Beer_name):-
+    beer(Beer_id, Beer_name),
+    write("Beer Id:"),write(Beer_id).
+
+what_beer(Beer_id):-
+    beer(Beer_id,Beer_name),
+    style(Beer_id,Style_name),
     write("Beer: "),write(Beer_name).
 
-what_style(Beer_name):-
-    beer(A,Beer_name),
-    style(A,Style_name),
+what_style(BeerStyle_id):-
+    style(BeerStyle_id,Style_name),
+    styleid(Style_id,Style_name),
     write("Style: "),write(Style_name).
+
+has_style(Beer_id):-
+    style(Beer_id,Style_name),
+    styleid(Style_id,Style_name),
+    write("Style Id: "),write(Style_id).
 
 what_abv(Beer_name):-
     beer(A,Beer_name),
