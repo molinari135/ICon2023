@@ -1,5 +1,8 @@
 import prolog as pl
 
 if __name__ == "__main__":
-    beers = pl.getBeers()
-    pl.printBeers(beers)
+    pl.start()
+    b = pl.getBeers()
+    print(b)
+    #pl.printBeers(b)
+    #print("ciao")

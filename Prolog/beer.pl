@@ -1,22 +1,26 @@
+:- dynamic(beer/2).
+:- dynamic(brewery/2).
+:- dynamic(style/2).
+
 use_module(library(csv)).
 
 % FATTI (DA CSV)
 :-
-    csv_read_file('csv/beer_name.csv',Beer,[functor(beer),separator(0';)]),
+    csv_read_file('Prolog/csv/beer_name.csv',Beer,[functor(beer),separator(0';)]),
     maplist(assert,Beer),
-    csv_read_file('csv/beer_brewery.csv',Brewery,[functor(brewery),separator(0';)]),
+    csv_read_file('Prolog/csv/beer_brewery.csv',Brewery,[functor(brewery),separator(0';)]),
     maplist(assert,Brewery),
-    csv_read_file('csv/beer_style.csv',Style,[functor(style),separator(0';)]),
+    csv_read_file('Prolog/csv/beer_style.csv',Style,[functor(style),separator(0';)]),
     maplist(assert,Style),
-    csv_read_file('csv/beer_abv.csv',Abv,[functor(abv),separator(0';)]),
+    csv_read_file('Prolog/csv/beer_abv.csv',Abv,[functor(abv),separator(0';)]),
     maplist(assert,Abv),
-    csv_read_file('csv/beer_mouthfeel.csv',MF,[functor(mouthfeel),separator(0';)]),
+    csv_read_file('Prolog/csv/beer_mouthfeel.csv',MF,[functor(mouthfeel),separator(0';)]),
     maplist(assert,MF),
-    csv_read_file('csv/beer_taste.csv',Taste,[functor(taste),separator(0';)]),
+    csv_read_file('Prolog/csv/beer_taste.csv',Taste,[functor(taste),separator(0';)]),
     maplist(assert,Taste),
-    csv_read_file('csv/beer_flavour.csv',Flavour,[functor(flavour),separator(0';)]),
+    csv_read_file('Prolog/csv/beer_flavour.csv',Flavour,[functor(flavour),separator(0';)]),
     maplist(assert,Flavour),
-    csv_read_file('csv/beer_review.csv',Review,[functor(review),separator(0';)]),
+    csv_read_file('Prolog/csv/beer_review.csv',Review,[functor(review),separator(0';)]),
     maplist(assert,Review).
 
 %ANNOTAZIONI
@@ -79,7 +83,7 @@ what_review(Beer_name):-
 % CLASSIFICAZIONE
 % L'utente fornisce in input i suoi "gusti"
 % e il sistema gli consiglia lo stile di birra
-% che più si avvicina ad essi
+% che piï¿½ si avvicina ad essi
 max(X,Y,Max):-
     X >= Y, !,
     Max = X; Max = Y.
