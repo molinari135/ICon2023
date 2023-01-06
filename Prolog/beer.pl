@@ -4,158 +4,195 @@
 
 use_module(library(csv)).
 
-% FATTI (DA CSV)
+% -------------------- CSV -------------------- %
 :-
-    csv_read_file('csv/beer_name.csv',Beer,[functor(beer),separator(0';)]),
-    maplist(assert,Beer),
-    csv_read_file('csv/style_id.csv',StyleId,[functor(styleid),separator(0';)]),
-    maplist(assert,StyleId),
-    csv_read_file('csv/beer_style.csv',Style,[functor(style),separator(0';)]),
-    maplist(assert,Style),
-    csv_read_file('csv/beer_abv.csv',Abv,[functor(abv),separator(0';)]),
-    maplist(assert,Abv),
-    csv_read_file('csv/style_mouthfeel.csv',MF,[functor(mouthfeel),separator(0';)]),
-    maplist(assert,MF),
-    csv_read_file('csv/style_taste.csv',Taste,[functor(taste),separator(0';)]),
-    maplist(assert,Taste),
-    csv_read_file('csv/style_flavour.csv',Flavour,[functor(flavour),separator(0';)]),
-    maplist(assert,Flavour),
-    csv_read_file('csv/beer_review.csv',Review,[functor(review),separator(0';)]),
-    maplist(assert,Review).
+    csv_read_file('csv/beer_name.csv', Beer, [functor(beer), separator(0';)]),
+    maplist(assert, Beer),
+    csv_read_file('csv/style_id.csv', Style, [functor(style), eparator(0';)]),
+    maplist(assert, StyleId),
+    csv_read_file('csv/beer_style.csv', BeerStyle, [functor(beerstyle), separator(0';)]),
+    maplist(assert, Style),
+    csv_read_file('csv/beer_abv.csv', Abv, [functor(abv), separator(0';)]),
+    maplist(assert, Abv),
+    csv_read_file('csv/style_mouthfeel.csv', MF, [functor(mouthfeel), separator(0';)]),
+    maplist(assert, MF),
+    csv_read_file('csv/style_taste.csv', Taste, [functor(taste), separator(0';)]),
+    maplist(assert, Taste),
+    csv_read_file('csv/style_flavour.csv', Flavour, [functor(flavour), separator(0';)]),
+    maplist(assert, Flavour),
+    csv_read_file('csv/beer_review.csv', Review, [functor(review), separator(0';)]),
+    maplist(assert, Review).
 
-%ANNOTAZIONI
-%Tutti i valori numerici vanno da 1 a 5
-%Low = [1,2.5]
-%Neutral = (2.5,3.5)
-%High = [3.5,5]
-%Il problema sta nel selezionare le birre con valori
-%non per forza esclusivi, valutando anche OR
+% -------------------- FATTI -------------------- %
+% beer(Beer_id, Beer_name).
+% style(Style_id, Style_name).
+% beerstyle(Beer_id, Style_id).
+% abv(Beer_id, Abv_value).
 
-%REGOLE
+% mouthfeel(Style_id, Astringency_value, Body_value, Alcohol_value).
+% taste(Style_id, Sweet_value, Bitter_value, Sour_value, Salty_value).
+% flavour(Style_id, Fruits_value, Hoppy_value, Malty_value, Spices_value).
 
-what_idbeer(Beer_name):-
+% -------------------- REGOLE -------------------- %
+
+% Regole basate su fatti relativi alle birre
+what_beer_id(Beer_name) :-
     beer(Beer_id, Beer_name),
-    write("Beer Id:"),write(Beer_id).
 
-what_beer(Beer_id):-
-    beer(Beer_id,Beer_name),
-    style(Beer_id,Style_name),
-    write("Beer: "),write(Beer_name).
+    write(Beer_id).
 
-what_style(BeerStyle_id):-
-    style(BeerStyle_id,Style_name),
-    styleid(Style_id,Style_name),
-    write("Style: "),write(Style_name).
+what_beer_name(Beer_id) :-
+    beer(Beer_id, Beer_name),
 
-has_style(Beer_id):-
-    style(Beer_id,Style_name),
-    styleid(Style_id,Style_name),
-    write("Style Id: "),write(Style_id).
+    write(Beer_name).
 
-what_abv(Beer_name):-
-    beer(A,Beer_name),
-    abv(A,Abv_value),
-    write("Abv: "),write(Abv_value).
+what_beer_abv(Beer_name) :-
+    beer(A, Beer_name),
+    abv(A, Abv_value),
 
-what_style_mouthfeel(Style_name):-
-    styleid(A,Style_name),
-    mouthfeel(A,Astringency_value,Body_value,Alcohol_value),
-    write("Astringency: "),write(Astringency_value),nl,
-    write("Body: "),write(Body_value),nl,
-    write("Alcohol: "),write(Alcohol_value).
+    write(Abv_value).
 
-what_mouthfeel(Beer_name):-
-    beer(A,Beer_name),
-    style(A,Style_name),
-    styleid(B,Style_name),
-    mouthfeel(B,Astringency_value,Body_value,Alcohol_value),
-    write("Astringency: "),write(Astringency_value),nl,
-    write("Body: "),write(Body_value),nl,
-    write("Alcohol: "),write(Alcohol_value).
+what_beer_style(Beer_name) :-
+    beer(A, Beer_name),
+    beerstyle(A, Style_name),
 
-what_style_taste(Style_name):-
-    styleid(A,Style_name),
-    taste(A,Sweet_value,Bitter_value,Sour_value,Salty_value),
-    write("Sweet: "),write(Sweet_value),nl,
-    write("Bitter: "),write(Bitter_value),nl,
-    write("Sour: "),write(Sour_value),nl,
-    write("Salty: "),write(Salty_value).
+    write(Style_name).
 
-what_taste(Beer_name):-
-    beer(A,Beer_name),
-    style(A,Style_name),
-    styleid(B,Style_name),
-    taste(B,Sweet_value,Bitter_value,Sour_value,Salty_value),
-    write("Sweet: "),write(Sweet_value),nl,
-    write("Bitter: "),write(Bitter_value),nl,
-    write("Sour: "),write(Sour_value),nl,
-    write("Salty: "),write(Salty_value).
+what_beer_review(Beer_name) :-
+    beer(A, Beer_name),
+    review(A, Review_value),
 
-what_style_flavour(Style_name):-
-    styleid(A,Style_name),
-    flavour(A,Fruits_value,Hoppy_values,Malty_values,Spices_value),
-    write("Fruits: "),write(Fruits_value),nl,
-    write("Hoppy: "),write(Hoppy_values),nl,
-    write("Malty: "),write(Malty_values),nl,
-    write("Spices: "),write(Spices_value).
+    write(Review_value).
 
-what_flavour(Beer_name):-
-    beer(A,Beer_name),
-    style(A,Style_name),
-    styleid(B,Style_name),
-    flavour(B,Fruits_value,Hoppy_values,Malty_values,Spices_value),
-    write("Fruits: "),write(Fruits_value),nl,
-    write("Hoppy: "),write(Hoppy_values),nl,
-    write("Malty: "),write(Malty_values),nl,
-    write("Spices: "),write(Spices_value).
 
-what_review(Beer_name):-
-    beer(A,Beer_name),
-    review(A,Review_value),
-    write("Review: "),write(Review_value).
+what_beer_mouthfeel(Beer_name) :-
+    beer(A, Beer_name),
+    beerstyle(A, Style_name),
+    style(B, Style_name),
 
-% CLASSIFICAZIONE
+    mouthfeel(B, Astringency_value, Body_value, Alcohol_value),
+
+    write(Astringency_value), nl,
+    write(Body_value), nl,
+    write(Alcohol_value).
+
+what_beer_taste(Beer_name) :-
+    beer(A, Beer_name),
+    beerstyle(A, Style_name),
+    style(B, Style_name),
+
+    taste(B, Sweet_value, Bitter_value, Sour_value, Salty_value),
+
+    write(Sweet_value), nl,
+    write(Bitter_value), nl,
+    write(Sour_value), nl,
+    write(Salty_value).
+
+what_beer_flavour(Beer_name) :-
+    beer(A, Beer_name),
+    beerstyle(A,Style_name),
+    style(B, Style_name),
+
+    flavour(B, Fruits_value, Hoppy_value, Malty_value, Spices_value),
+
+    write(Fruits_value), nl,
+    write(Hoppy_value), nl,
+    write(Malty_value), nl,
+    write(Spices_value).
+
+% Regole basate su fatti relativi agli stili
+what_style_id(Style_name) :-
+    style(Style_id, Style_name),
+
+    write(Style_id).
+
+what_style_name(Style_id) :-
+    style(Style_id, Style_name),
+
+    write(Style_name).
+
+what_style_mouthfeel(Style_name) :-
+    style(A, Style_name),
+
+    mouthfeel(A, Astringency_value, Body_value, Alcohol_value),
+
+    write(Astringency_value), nl,
+    write(Body_value), nl,
+    write(Alcohol_value).
+
+what_style_taste(Style_name) :-
+    style(A, Style_name),
+
+    taste(A, Sweet_value, Bitter_value, Sour_value, Salty_value),
+
+    write(Sweet_value), nl,
+    write(Bitter_value), nl,
+    write(Sour_value), nl,
+    write(Salty_value).
+
+what_style_flavour(Style_name) :-
+    style(A, Style_name),
+
+    flavour(A, Fruits_value, Hoppy_value, Malty_value, Spices_value),
+
+    write(Fruits_value), nl,
+    write(Hoppy_value), nl,
+    write(Malty_value), nl,
+    write(Spices_value).
+
+% -------------------- APPRENDIMENTO -------------------- %
 % L'utente fornisce in input i suoi "gusti"
 % e il sistema gli consiglia lo stile di birra
 % che pi� si avvicina ad essi
 
-% Identifica lo stile dell'utente
-identify_taste(Sweet_value,Bitter_value,Sour_value,Salty_value):-
+% Apprendimento del gusto
+identify_taste(Sweet_input, Bitter_input, Sour_input, Salty_input) :-
+    taste(A, Sweet_value, Bitter_value, Sour_value, Salty_value),
 
-    taste(A,Sweet,Bitter,Sour,Salty),
+    % implementare knn
+    Sweet_value >= Sweet_input,
+    Bitter_value >= Bitter_input,
+    Sour_value >= Sour_input,
+    Salty_value >= Salty_input,
 
-    Sweet >= Sweet_value,
-    Bitter >= Bitter_value,
-    Sour >= Sour_value,
-    Salty >= Salty_value,
+    style(A, Style_name),
+    write(Style_name).
 
-    styleid(A,Style_name),
-    write("Recommended style: "),write(Style_name),nl.
+% Apprendimento della sensazione al palato
+identify_mouthfeel(Astringency_input, Body_input, Alcohol_input) :-
+    mouthfeel(A, Astringency_value, Body_value, Alcohol_value),
 
-identify_mouthfeel(Astringency_value,Body_value,Alcohol_value):-
+    % implementare knn
+    Astringency_value >= Astringency_input,
+    Body_value >= Body_input,
+    Alcohol_value >= Alcohol_input,
 
-    mouthfeel(A,Astringency,Body,Alcohol),
+    style(A, Style_name),
+    write(Style_name).
 
-    Astringency >= Astringency_value,
-    Body >= Body_value,
-    Alcohol >= Alcohol_value,
+% Apprendimento del sapore
+identify_flavour(Fruity_input, Hoppy_input, Malty_input, Spices_input) :-
+    flavour(A, Fruity_value, Hoppy_value, Malty_value, Spices_value),
 
-    styleid(A,Style_name),
-    write("Recommended style: "),write(Style_name),nl.
+    % implementare knn
+    Fruity_value >= Fruity_input,
+    Hoppy_value >= Hoppy_input,
+    Malty_value >= Malty_input,
+    Spices_value >= Spices_input,
 
-identify_flavour(Fruity_value,Hoppy_value,Malty_value,Spices_value):-
+    style(A, Style_name),
+    write(Style_name).
 
-    flavour(A,Fruity,Hoppy,Malty,Spices),
+% Apprendimento delle preferenze dell'utente
+identify_user(Sweet_input, Bitter_input, Sour_input, Salty_input,
+                Astringency_input, Body_input, Alcohol_input,
+                    Fruity_input, Hoppy_input, Malty_input, Spices_input) :-
 
-    Fruity >= Fruity_value,
-    Hoppy >= Hoppy_value,
-    Malty >= Malty_value,
-    Spices >= Spices_value,
+    identify_taste(Sweet_input, Bitter_input, Sour_input, Salty_input),
+    identify_mouthfeel(Astringency_input, Body_input, Alcohol_input),
+    identify_flavour(Fruity_input, Hoppy_input, Malty_input, Spices_input).
 
-    styleid(A,Style_name),
-    write("Recommended style: "),write(Style_name),nl.
-
-identify_user(A,B,C,D,E,F,G,H,J,K,L):-
-    identify_flavour(A,B,C,D),
-    identify_mouthfeel(E,F,G),
-    identify_flavour(H,J,K,L).
+% Test KNN (K = 110)
+knn(x1, x2, y1, y2) :-
+    dist1 = sqrt((x1-y1)**2 + (x2-y2)**2),
+    write(dist).
