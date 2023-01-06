@@ -8,10 +8,10 @@ use_module(library(csv)).
 :-
     csv_read_file('csv/beer_name.csv', Beer, [functor(beer), separator(0';)]),
     maplist(assert, Beer),
-    csv_read_file('csv/style_id.csv', Style, [functor(style), eparator(0';)]),
-    maplist(assert, StyleId),
-    csv_read_file('csv/beer_style.csv', BeerStyle, [functor(beerstyle), separator(0';)]),
+    csv_read_file('csv/style_id.csv', Style, [functor(style), separator(0';)]),
     maplist(assert, Style),
+    csv_read_file('csv/beer_style.csv', BeerStyle, [functor(beerstyle), separator(0';)]),
+    maplist(assert, BeerStyle),
     csv_read_file('csv/beer_abv.csv', Abv, [functor(abv), separator(0';)]),
     maplist(assert, Abv),
     csv_read_file('csv/style_mouthfeel.csv', MF, [functor(mouthfeel), separator(0';)]),
@@ -202,8 +202,6 @@ identify_user(Sweet_input, Bitter_input, Sour_input, Salty_input,
 diff(X,Y,Z) :- Z is abs(X-Y).
 
 min(X,Y,Min) :- X =< Y, !, Min = X; Min = Y.
-
-mem_style(Style_id, Style_name) :- 
 
 % 1. Prende in input le 3 valutazioni
 % 2. Prende un fatto dalla KB e ne prende le valutazioni
