@@ -201,7 +201,10 @@ identify_user(Sweet_input, Bitter_input, Sour_input, Salty_input,
 
 diff(X,Y,Z) :- Z is abs(X-Y).
 
-min(X,Y,Min) :- X =< Y, !, Min = X; Min = Y.
+%min(X,Y,Min) :- X =< Y, !, Min = X; Min = Y.
+
+min_dist(Data) :-
+    aggregate(min(X,Y), list_mouthfeel(X,Y), min(_,Data)).
 
 % 1. Prende in input le 3 valutazioni
 % 2. Prende un fatto dalla KB e ne prende le valutazioni
@@ -219,6 +222,5 @@ dist_mouthfeel(Astringency_input, Body_input, Alcohol_input) :-
     sqrt(((S1*S1)+(Alc*Alc)), S),
 
     assert(list_mouthfeel(A, S)).
-
 % alla fine della procedura, va effettuato retract(list_mouthfeel)
 % per rimuovere il fatto dell'utente
