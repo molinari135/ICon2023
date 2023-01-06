@@ -192,7 +192,35 @@ identify_user(Sweet_input, Bitter_input, Sour_input, Salty_input,
     identify_mouthfeel(Astringency_input, Body_input, Alcohol_input),
     identify_flavour(Fruity_input, Hoppy_input, Malty_input, Spices_input).
 
-% Test KNN (K = 110)
-knn(x1, x2, y1, y2) :-
-    dist1 = sqrt((x1-y1)**2 + (x2-y2)**2),
-    write(dist).
+% Test KNN (K = 2)
+% Calcolo la distanza euclidea tra due valori della stessa valutazione
+% lo ripeto per tutte le valutazioni e per tutti gli stili presenti nella KB
+% memorizzando tutti i valori in una lista.
+% Cerco il valore minore della lista, risalgo alla sua posizione e stampo il risultato
+% Alternativa: memorizzo codice stile e valore minore
+
+diff(X,Y,Z) :- Z is abs(X-Y).
+
+min(X,Y,Min) :- X =< Y, !, Min = X; Min = Y.
+
+mem_style(Style_id, Style_name) :- 
+
+% 1. Prende in input le 3 valutazioni
+% 2. Prende un fatto dalla KB e ne prende le valutazioni
+% 3. Calcola la distanza euclidea tra le due valutazioni
+% 4. Memorizza Style_id e distanza euclidea in data
+dist_mouthfeel(Astringency_input, Body_input, Alcohol_input) :-
+
+    mouthfeel(A, Astringency_value, Body_value, Alcohol_value),
+
+    diff(Astringency_input, Astringency_value, Ast),
+    diff(Body_input, Body_value, Bod),
+    diff(Alcohol_input, Alcohol_value, Alc),
+
+    sqrt(((Ast*Ast)+(Bod*Bod)), S1),
+    sqrt(((S1*S1)+(Alc*Alc)), S),
+
+    assert(list_mouthfeel(A, S)).
+
+% alla fine della procedura, va effettuato retract(list_mouthfeel)
+% per rimuovere il fatto dell'utente
