@@ -20,21 +20,21 @@ use_module(library(csv)).
     retractall(dist_taste(X,Y)),
 
     % importazione fatti
-    csv_read_file('csv/beer_name.csv', Beer, [functor(beer), separator(0';)]),
+    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/beer_name.csv', Beer, [functor(beer), separator(0';)]),
     maplist(assert, Beer),
-    csv_read_file('csv/style_id.csv', Style, [functor(style), separator(0';)]),
+    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/style_id.csv', Style, [functor(style), separator(0';)]),
     maplist(assert, Style),
-    csv_read_file('csv/beer_style.csv', BeerStyle, [functor(beerstyle), separator(0';)]),
+    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/beer_style.csv', BeerStyle, [functor(beerstyle), separator(0';)]),
     maplist(assert, BeerStyle),
-    csv_read_file('csv/beer_abv.csv', Abv, [functor(abv), separator(0';)]),
+    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/beer_abv.csv', Abv, [functor(abv), separator(0';)]),
     maplist(assert, Abv),
-    csv_read_file('csv/style_mouthfeel.csv', MF, [functor(mouthfeel), separator(0';)]),
+    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/style_mouthfeel.csv', MF, [functor(mouthfeel), separator(0';)]),
     maplist(assert, MF),
-    csv_read_file('csv/style_taste.csv', Taste, [functor(taste), separator(0';)]),
+    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/style_taste.csv', Taste, [functor(taste), separator(0';)]),
     maplist(assert, Taste),
-    csv_read_file('csv/style_flavour.csv', Flavour, [functor(flavour), separator(0';)]),
+    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/style_flavour.csv', Flavour, [functor(flavour), separator(0';)]),
     maplist(assert, Flavour),
-    csv_read_file('csv/beer_review.csv', Review, [functor(review), separator(0';)]),
+    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/beer_review.csv', Review, [functor(review), separator(0';)]),
     maplist(assert, Review).
 
 % -------------------- FATTI -------------------- %
@@ -206,7 +206,7 @@ identify_user(Sweet_input, Bitter_input, Sour_input, Salty_input,
     identify_mouthfeel(Astringency_input, Body_input, Alcohol_input),
     identify_flavour(Fruity_input, Hoppy_input, Malty_input, Spices_input).
 
-% Test KNN (K = 2)
+% Test KNN (K = 3, manuale)
 % Calcolo la distanza euclidea tra due valori della stessa valutazione
 % lo ripeto per tutte le valutazioni e per tutti gli stili presenti nella KB
 % memorizzando tutti i valori in una lista.

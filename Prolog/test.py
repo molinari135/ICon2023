@@ -8,5 +8,7 @@ p.consult('Prolog/beer.pl')
 myQuery = "beer(_,X)."
 l = list(p.query(myQuery))
 
-for beer[X] in l:
-    print(beer[X])
+p.listProp(l)
+
+for beer in l:
+    print(beer)

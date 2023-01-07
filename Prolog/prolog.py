@@ -2,15 +2,12 @@ from pyswip import Prolog
 
 prolog = Prolog()
 
-def start():
-    prolog.consult('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/beer.pl')
-    prolog.query("import")
+prolog.consult('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/beer.pl')
 
 # mette tutte le birre della kb in una lista
-def getBeers():
-    #beers = list(prolog.query("beer(A,B)"))
-    beers = prolog.query('beer(_,"Amber").')
-    return beers
+def getStyles():
+    styles = list(prolog.query("style(A,B)"))
+    return styles
 
 # stampa la lista di birre
 def printBeers(beers):
