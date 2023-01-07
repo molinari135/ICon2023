@@ -1,7 +1,11 @@
 import prolog as pl
 
 if __name__ == "__main__":
-    s = pl.getStyles()
+    styles = pl.getStyles()
+    beers = pl.getBeers()
+    beerstyle = pl.getBeerStyle()
 
-    for elem in s:
-        print(elem['A'])
+    taste = pl.userTaste(1,2,1,1)
+
+    for t in taste:
+        print(t['Style'])
