@@ -6,6 +6,20 @@ use_module(library(csv)).
 
 % -------------------- CSV -------------------- %
 :-
+    % inizializzazione fatti
+    retractall(beer(X, Y)),
+    retractall(style(X, Y)),
+    retractall(beerstyle(X,Y)),
+    retractall(abv(X,Y)),
+    retractall(mouthfeel(A,B,C,D)),
+    retractall(taste(A,B,C,D,E)),
+    retractall(flavour(A,B,C,D,E)),
+    retractall(review(X,Y)),
+    retractall(dist_flavour(X,Y)),
+    retractall(dist_mouthfeel(X,Y)),
+    retractall(dist_taste(X,Y)),
+
+    % importazione fatti
     csv_read_file('csv/beer_name.csv', Beer, [functor(beer), separator(0';)]),
     maplist(assert, Beer),
     csv_read_file('csv/style_id.csv', Style, [functor(style), separator(0';)]),
@@ -204,13 +218,16 @@ diff(X,Y,Z) :- Z is abs(X-Y).
 %min(X,Y,Min) :- X =< Y, !, Min = X; Min = Y.
 
 min_dist(Data) :-
-    aggregate(min(X,Y), list_mouthfeel(X,Y), min(_,Data)).
+    aggregate(min(X,Y), list_mouthfeel(X,Y), min(_,Data)),
+    order_by([asc(Y)], list_mouthfeel(X,Y)).
 
 % 1. Prende in input le 3 valutazioni
 % 2. Prende un fatto dalla KB e ne prende le valutazioni
 % 3. Calcola la distanza euclidea tra le due valutazioni
 % 4. Memorizza Style_id e distanza euclidea in data
-dist_mouthfeel(Astringency_input, Body_input, Alcohol_input) :-
+dist_style_mouthfeel(Astringency_input, Body_input, Alcohol_input) :-
+
+    retractall(dist_mouthfeel(_X,_Y)),
 
     mouthfeel(A, Astringency_value, Body_value, Alcohol_value),
 
@@ -219,8 +236,43 @@ dist_mouthfeel(Astringency_input, Body_input, Alcohol_input) :-
     diff(Alcohol_input, Alcohol_value, Alc),
 
     sqrt(((Ast*Ast)+(Bod*Bod)), S1),
-    sqrt(((S1*S1)+(Alc*Alc)), S),
+    %sqrt(((S1*S1)+(Alc*Alc)), S),
+    S is (S1+Alc),
 
-    assert(list_mouthfeel(A, S)).
+    assert(dist_mouthfeel(A, S)).
 % alla fine della procedura, va effettuato retract(list_mouthfeel)
 % per rimuovere il fatto dell'utente
+
+dist_style_taste(Sweet_input, Bitter_input, Sour_input, Salty_input) :-
+
+    retractall(dist_taste(_X,_Y)),
+
+    taste(A, Sweet_value, Bitter_value, Sour_value, Salty_value),
+
+    diff(Sweet_input, Sweet_value, Swe),
+    diff(Bitter_input, Bitter_value, Bit),
+    diff(Sour_input, Sour_value, Sou),
+    diff(Salty_input, Salty_value, Sal),
+
+    sqrt(((Swe*Swe)+(Bit*Bit)), S1),
+    sqrt(((Sou*Sou)+(Sal*Sal)), S2),
+    S is (S1+S2),
+
+    assert(dist_taste(A, S)).
+
+dist_style_flavour(Fruity_input, Hoppy_input, Malty_input, Spices_input) :-
+
+    retractall(dist_flavour(_X,_Y)),
+
+    flavour(A, Fruity_value, Hoppy_value, Malty_value, Spices_value),
+
+    diff(Fruity_input, Fruity_value, Fru),
+    diff(Hoppy_input, Hoppy_value, Hop),
+    diff(Malty_input, Malty_value, Mal),
+    diff(Spices_input, Spices_value, Spi),
+
+    sqrt(((Fru*Fru)+(Hop*Hop)), S1),
+    sqrt(((Mal*Mal)+(Spi*Spi)), S2),
+    S is (S1+S2),
+
+    assert(dist_flavour(A, S)).
