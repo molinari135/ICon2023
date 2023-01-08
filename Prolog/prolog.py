@@ -65,11 +65,14 @@ def whatStyleFlavour(style_name):
 def userTaste(sweet, bitter, sour, salty):
     list(prolog.query(f"dist_style_taste({sweet},{bitter},{sour},{salty})"))
     user_taste = list(prolog.query("order_by([asc(Value)], dist_taste(Style,Value))"))
-    #user_taste = list(prolog.query("dist_taste(Style_id, Taste_value)"))
     return user_taste
 
 def userMouthfeel(astringency, body, alcohol):
-    prolog.query(f"dist_style_mouthfeel({astringency},{body},{alcohol})")
+    list(prolog.query(f"dist_style_mouthfeel({astringency},{body},{alcohol})"))
+    user_mouthfeel = list(prolog.query("order_by([asc(Value)], dist_mouthfeel(Style,Value))"))
+    return user_mouthfeel
 
 def userFlavour(fruity, hoppy, malty, spices):
-    prolog.query(f"dist_style_flavour({fruity},{hoppy},{malty},{spices})")
+    list(prolog.query(f"dist_style_flavour({fruity},{hoppy},{malty},{spices})"))
+    user_flavour = list(prolog.query("order_by([asc(Value)], dist_flavour(Style,Value))"))
+    return user_flavour
