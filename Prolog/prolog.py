@@ -2,7 +2,7 @@ from pyswip import Prolog
 
 prolog = Prolog()
 
-prolog.consult('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/beer.pl')
+prolog.consult('Prolog/beer.pl')
 
 # --------- get data from KB --------- #
 def getBeers():
