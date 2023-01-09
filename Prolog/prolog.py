@@ -1,8 +1,12 @@
 from pyswip import Prolog
+from pathlib import Path
+
+current_path = Path(__file__)
+csv_path = current_path / "csv"
 
 prolog = Prolog()
 
-prolog.consult('Prolog/beer.pl')
+prolog.consult(f"{current_path.as_posix()}/../beer.pl")
 
 # --------- get data from KB --------- #
 def getBeers():

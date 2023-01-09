@@ -6,6 +6,9 @@ use_module(library(csv)).
 
 % -------------------- CSV -------------------- %
 :-
+
+    % working_directory(_CWD, 'C:/Users/Ester/Documents/GitHub/ICon2023/Prolog'),
+    
     % inizializzazione fatti
     retractall(beer(X, Y)),
     retractall(style(X, Y)),
