@@ -7,6 +7,7 @@ csv_path = current_path / "csv"
 prolog = Prolog()
 
 prolog.consult(f"{current_path.as_posix()}/../beer.pl")
+prolog.query(f"working_directory(_CWD, '{current_path.as_posix()}/../')")
 
 # --------- get data from KB --------- #
 def getBeers():
@@ -66,6 +67,12 @@ def whatStyleFlavour(style_name):
     return style_flavour
 
 # --------- simple classifier --------- #
+# logic
+def userDesc(astringency, taste, style):
+    user_desc = list(prolog.query(f"desc(X, {astringency}, {taste}, {style})"))
+    return user_desc
+
+# naive knn
 def userTaste(sweet, bitter, sour, salty):
     list(prolog.query(f"dist_style_taste({sweet},{bitter},{sour},{salty})"))
     user_taste = list(prolog.query("order_by([asc(Value)], dist_taste(Style,Value))"))

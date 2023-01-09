@@ -23,22 +23,24 @@ use_module(library(csv)).
     retractall(dist_taste(X,Y)),
 
     % importazione fatti
-    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/beer_name.csv', Beer, [functor(beer), separator(0';)]),
+    csv_read_file('C:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/beer_name.csv', Beer, [functor(beer), separator(0';)]),
     maplist(assert, Beer),
-    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/style_id.csv', Style, [functor(style), separator(0';)]),
+    csv_read_file('C:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/style_id.csv', Style, [functor(style), separator(0';)]),
     maplist(assert, Style),
-    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/beer_style.csv', BeerStyle, [functor(beerstyle), separator(0';)]),
+    csv_read_file('C:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/beer_style.csv', BeerStyle, [functor(beerstyle), separator(0';)]),
     maplist(assert, BeerStyle),
-    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/beer_abv.csv', Abv, [functor(abv), separator(0';)]),
+    csv_read_file('C:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/beer_abv.csv', Abv, [functor(abv), separator(0';)]),
     maplist(assert, Abv),
-    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/style_mouthfeel.csv', MF, [functor(mouthfeel), separator(0';)]),
+    csv_read_file('C:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/style_mouthfeel.csv', MF, [functor(mouthfeel), separator(0';)]),
     maplist(assert, MF),
-    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/style_taste.csv', Taste, [functor(taste), separator(0';)]),
+    csv_read_file('C:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/style_taste.csv', Taste, [functor(taste), separator(0';)]),
     maplist(assert, Taste),
-    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/style_flavour.csv', Flavour, [functor(flavour), separator(0';)]),
+    csv_read_file('C:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/style_flavour.csv', Flavour, [functor(flavour), separator(0';)]),
     maplist(assert, Flavour),
-    csv_read_file('c:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/beer_review.csv', Review, [functor(review), separator(0';)]),
-    maplist(assert, Review).
+    csv_read_file('C:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/beer_review.csv', Review, [functor(review), separator(0';)]),
+    maplist(assert, Review),
+    csv_read_file('C:/Users/Ester/Documents/GitHub/ICon2023/Prolog/csv/style_desc.csv', Desc, [functor(desc), separator(0';)]),
+    maplist(assert, Desc).
 
 % -------------------- FATTI -------------------- %
 % beer(Beer_id, Beer_name).
@@ -98,10 +100,10 @@ what_beer_taste(Beer_name) :-
     beerstyle(A, Style_name),
     style(B, Style_name),
 
-    taste(B, Sweet_value, Bitter_value, Sour_value, Salty_value),
+    taste(B, Bitter_value, Sweet_value, Sour_value, Salty_value),
 
-    write(Sweet_value), nl,
     write(Bitter_value), nl,
+    write(Sweet_value), nl,
     write(Sour_value), nl,
     write(Salty_value).
 
@@ -110,12 +112,12 @@ what_beer_flavour(Beer_name) :-
     beerstyle(A,Style_name),
     style(B, Style_name),
 
-    flavour(B, Fruits_value, Hoppy_value, Malty_value, Spices_value),
+    flavour(B, Fruits_value, Hoppy_value, Spices_value, Malty_value),
 
     write(Fruits_value), nl,
     write(Hoppy_value), nl,
-    write(Malty_value), nl,
-    write(Spices_value).
+    write(Spices_value), nl,
+    write(Malty_value).
 
 % Regole basate su fatti relativi agli stili
 what_style_id(Style_name) :-
@@ -140,74 +142,38 @@ what_style_mouthfeel(Style_name) :-
 what_style_taste(Style_name) :-
     style(A, Style_name),
 
-    taste(A, Sweet_value, Bitter_value, Sour_value, Salty_value),
+    taste(A, Bitter_value, Sweet_value, Sour_value, Salty_value),
 
-    write(Sweet_value), nl,
     write(Bitter_value), nl,
+    write(Sweet_value), nl,
     write(Sour_value), nl,
     write(Salty_value).
 
 what_style_flavour(Style_name) :-
     style(A, Style_name),
 
-    flavour(A, Fruits_value, Hoppy_value, Malty_value, Spices_value),
+    flavour(A, Fruits_value, Hoppy_value, Spices_value, Malty_value),
 
     write(Fruits_value), nl,
     write(Hoppy_value), nl,
-    write(Malty_value), nl,
-    write(Spices_value).
+    write(Spices_value), nl,
+    write(Malty_value).
 
 % -------------------- APPRENDIMENTO -------------------- %
 % L'utente fornisce in input i suoi "gusti"
 % e il sistema gli consiglia lo stile di birra
 % che pi� si avvicina ad essi
 
-% Apprendimento del gusto
-identify_taste(Sweet_input, Bitter_input, Sour_input, Salty_input) :-
-    taste(A, Sweet_value, Bitter_value, Sour_value, Salty_value),
+% Apprendimento logico
+% Viene chiesto all'utente di inserire 3 attributi:
+% 1. astringent/body/alcohol
+% 2. bitter/sweet/sour/salty
+% 3. fruits/hoppy/malty/spices
+% Viene data come risposta lo stile che corrisponde agli attributi
 
-    % implementare knn
-    Sweet_value >= Sweet_input,
-    Bitter_value >= Bitter_input,
-    Sour_value >= Sour_input,
-    Salty_value >= Salty_input,
+find_desc_style(Mouthfeel, Taste, Flavour) :-
 
-    style(A, Style_name),
-    write(Style_name).
-
-% Apprendimento della sensazione al palato
-identify_mouthfeel(Astringency_input, Body_input, Alcohol_input) :-
-    mouthfeel(A, Astringency_value, Body_value, Alcohol_value),
-
-    % implementare knn
-    Astringency_value >= Astringency_input,
-    Body_value >= Body_input,
-    Alcohol_value >= Alcohol_input,
-
-    style(A, Style_name),
-    write(Style_name).
-
-% Apprendimento del sapore
-identify_flavour(Fruity_input, Hoppy_input, Malty_input, Spices_input) :-
-    flavour(A, Fruity_value, Hoppy_value, Malty_value, Spices_value),
-
-    % implementare knn
-    Fruity_value >= Fruity_input,
-    Hoppy_value >= Hoppy_input,
-    Malty_value >= Malty_input,
-    Spices_value >= Spices_input,
-
-    style(A, Style_name),
-    write(Style_name).
-
-% Apprendimento delle preferenze dell'utente
-identify_user(Sweet_input, Bitter_input, Sour_input, Salty_input,
-                Astringency_input, Body_input, Alcohol_input,
-                    Fruity_input, Hoppy_input, Malty_input, Spices_input) :-
-
-    identify_taste(Sweet_input, Bitter_input, Sour_input, Salty_input),
-    identify_mouthfeel(Astringency_input, Body_input, Alcohol_input),
-    identify_flavour(Fruity_input, Hoppy_input, Malty_input, Spices_input).
+    desc(A, Mouthfeel, Taste, Flavour).
 
 % Test KNN (K = 3, manuale)
 % Calcolo la distanza euclidea tra due valori della stessa valutazione
@@ -217,12 +183,6 @@ identify_user(Sweet_input, Bitter_input, Sour_input, Salty_input,
 % Alternativa: memorizzo codice stile e valore minore
 
 diff(X,Y,Z) :- Z is abs(X-Y).
-
-%min(X,Y,Min) :- X =< Y, !, Min = X; Min = Y.
-
-min_dist(Data) :-
-    aggregate(min(X,Y), list_mouthfeel(X,Y), min(_,Data)),
-    order_by([asc(Y)], list_mouthfeel(X,Y)).
 
 % 1. Prende in input le 3 valutazioni
 % 2. Prende un fatto dalla KB e ne prende le valutazioni
@@ -246,14 +206,14 @@ dist_style_mouthfeel(Astringency_input, Body_input, Alcohol_input) :-
 % alla fine della procedura, va effettuato retract(list_mouthfeel)
 % per rimuovere il fatto dell'utente
 
-dist_style_taste(Sweet_input, Bitter_input, Sour_input, Salty_input) :-
+dist_style_taste(Bitter_input, Sweet_input, Sour_input, Salty_input) :-
 
     retractall(dist_taste(_X,_Y)),
 
-    taste(A, Sweet_value, Bitter_value, Sour_value, Salty_value),
+    taste(A, Bitter_value, Sweet_value, Sour_value, Salty_value),
 
-    diff(Sweet_input, Sweet_value, Swe),
     diff(Bitter_input, Bitter_value, Bit),
+    diff(Sweet_input, Sweet_value, Swe),
     diff(Sour_input, Sour_value, Sou),
     diff(Salty_input, Salty_value, Sal),
 
@@ -263,19 +223,19 @@ dist_style_taste(Sweet_input, Bitter_input, Sour_input, Salty_input) :-
 
     assert(dist_taste(A, S)).
 
-dist_style_flavour(Fruity_input, Hoppy_input, Malty_input, Spices_input) :-
+dist_style_flavour(Fruity_input, Hoppy_input, Spices_input, Malty_input) :-
 
     retractall(dist_flavour(_X,_Y)),
 
-    flavour(A, Fruity_value, Hoppy_value, Malty_value, Spices_value),
+    flavour(A, Fruity_value, Hoppy_value, Spices_value, Malty_value),
 
     diff(Fruity_input, Fruity_value, Fru),
     diff(Hoppy_input, Hoppy_value, Hop),
-    diff(Malty_input, Malty_value, Mal),
     diff(Spices_input, Spices_value, Spi),
+    diff(Malty_input, Malty_value, Mal),
 
     sqrt(((Fru*Fru)+(Hop*Hop)), S1),
-    sqrt(((Mal*Mal)+(Spi*Spi)), S2),
+    sqrt(((Spi*Spi)+(Mal*Mal)), S2),
     S is (S1+S2),
 
     assert(dist_flavour(A, S)).
