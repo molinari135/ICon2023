@@ -173,7 +173,7 @@ what_style_flavour(Style_name) :-
 
 find_desc_style(Mouthfeel, Taste, Flavour) :-
 
-    desc(A, Mouthfeel, Taste, Flavour).
+    desc(_A, Mouthfeel, Taste, Flavour).
 
 % Test KNN (K = 3, manuale)
 % Calcolo la distanza euclidea tra due valori della stessa valutazione
