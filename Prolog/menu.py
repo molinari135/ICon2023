@@ -61,7 +61,7 @@ def beerSectionMenu():
 
 def styleSectionMenu():
     while(True):
-        beerMenuTextEng()
+        styleMenuTextEng()
 
         user_input = int(input("\nEnter a number: "))
 
