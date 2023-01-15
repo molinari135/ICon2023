@@ -22,6 +22,14 @@ def getBeerStyle():
     beer_style = list(prolog.query("beerstyle(Beer_id, Style_id)"))
     return beer_style
 
+def getBeerReviews():
+    beer_reviews = list(prolog.query("review(Beer_id, Review)"))
+    return beer_reviews
+
+def getBeerAbvs():
+    beer_abvs = list(prolog.query("abv(Beer_id, Abv)"))
+    return beer_abvs
+
 # --------- rules related to beers --------- #
 def whatBeerID(beer_name):
     id = prolog.query(f"what_beer_id('{beer_name}')")
@@ -36,11 +44,11 @@ def whatBeerAbv(beer_name):
     return abv
 
 def whatBeerStyle(beer_name):
-    style = prolog.query(f"what_beer_style('{beer_name}')")
+    style = list(prolog.query(f"what_beer_style({beer_name})."))
     return style
 
 def whatBeerReview(beer_name):
-    review = prolog.query(f"what_beer_review('{beer_name}')")
+    review = list(prolog.query(f"what_beer_review('{beer_name}')"))
     return review
 
 # what_beer_mouthfeel, what_beer_taste, what_beer_flavour unuseful...
@@ -71,6 +79,12 @@ def whatStyleFlavour(style_name):
 def userDesc(astringency, taste, style):
     user_desc = list(prolog.query(f"desc(X, {astringency}, {taste}, {style})"))
     return user_desc
+
+# naive bayes
+def userBayes(name, astringency, taste, style):
+    list(prolog.query(f"predict({name}, {astringency}, {taste}, {style}, Y)"))
+    user_bayes = list(prolog.query(f"order_by([asc(Value)], bayes(Name,Value))"))
+    return user_bayes
 
 # naive knn
 def userTaste(sweet, bitter, sour, salty):

@@ -50,7 +50,7 @@ def beerSectionMenu():
             
         elif user_input == 3:
             # info/help
-            userManualTextEng()
+            styleManualEng()
 
         elif user_input == 4:
             # exit
@@ -75,7 +75,7 @@ def styleSectionMenu():
 
         elif user_input == 3:
             # info/help
-            userManualTextEng()
+            styleManualEng()
 
         elif user_input == 4:
             # exit
@@ -100,7 +100,7 @@ def recommendMenu():
 
         elif user_input == 3:
             # info/help
-            userManualTextEng()
+            styleManualEng()
 
         elif user_input == 4:
             # exit
@@ -112,7 +112,7 @@ def printBeerMenu():
     beers = pl.getBeers()
 
     while(True):
-        print("\n 1 -- Print all random beers"
+        print("\n 1 -- Print all beers"
         +"\n 2 -- Print a random beer"
         +"\n 3 -- Return to main menu")
 
@@ -126,6 +126,7 @@ def printBeerMenu():
         elif user_input == 2:
             # 1 random beer
             r = random.randint(1,110)
+
             print(f"\nBeer name: {beers[r]['Beer_name']} (ID: {beers[r]['Beer_id']})")
 
         elif user_input == 3:
@@ -137,6 +138,8 @@ def printBeerMenu():
 
 def findBeerMenu():
     beers = pl.getBeers()
+    abvs = pl.getBeerAbvs()
+    reviews = pl.getBeerReviews()
 
     while(True):
         print("\n 1 -- Find by name"
@@ -153,10 +156,14 @@ def findBeerMenu():
 
             for b in beers:
                 if input_name == b['Beer_name']:
+                    id = b['Beer_id']
                     found = True
 
             if found:
                 print(f"\nFound it!")
+                print(f"\nID: {beers[id]['Beer_id']}")
+                print(f"ABV: {abvs[id]['Abv']}")
+                print(f"Review: {reviews[id]['Review']}")
             else:
                 print(f"\nNot found...")
 
@@ -172,6 +179,9 @@ def findBeerMenu():
 
             if found:
                 print("\nFound it!")
+                print(f"\nName: {beers[input_id]['Beer_name']}")
+                print(f"ABV: {abvs[input_id]['Abv']}")
+                print(f"Review: {reviews[input_id]['Review']}")
             else:
                 print("\nNot found...")
 
@@ -198,7 +208,9 @@ def printStyleMenu():
         elif user_input == 2:
             # 1 random style
             r = random.randint(1,110)
+            desc = list(pl.prolog.query(f"desc(X, Mouthfeel, Taste, Flavour)"))
             print(f"\nStyle name: {styles[r]['Style_name']} (ID: {styles[r]['Style_id']})")
+            print(f"Description: {desc[r]['Mouthfeel']}, {desc[r]['Taste']}, {desc[r]['Flavour']}")
             
         elif user_input == 3:
             # exit
@@ -208,7 +220,8 @@ def printStyleMenu():
             print("\n [!] I don't know this command!")
 
 def findStyleMenu():
-    styles = pl.getBeers()
+    styles = pl.getStyles()
+    desc = list(pl.prolog.query(f"desc(X, Mouthfeel, Taste, Flavour)"))
 
     while(True):
         print("\n 1 -- Find by name"
@@ -224,11 +237,14 @@ def findStyleMenu():
             found = False
 
             for s in styles:
-                if input_name == s['Beer_style']:
+                if input_name == s['Style_name']:
+                    id = s['Style_id']
                     found = True
 
             if found:
                 print(f"\nFound it!")
+                print(f"ID: {id}")
+                print(f"Description: {desc[id]['Mouthfeel']}, {desc[id]['Taste']}, {desc[id]['Flavour']}")
             else:
                 print(f"\nNot found...")
 
@@ -244,6 +260,8 @@ def findStyleMenu():
 
             if found:
                 print("\nFound it!")
+                print(f"\nStyle: {styles[input_id]['Style_name']}")
+                print(f"Description: {desc[input_id]['Mouthfeel']}, {desc[input_id]['Taste']}, {desc[input_id]['Flavour']}")
             else:
                 print("\nNot found...")
 
@@ -258,15 +276,18 @@ def fastRecommenderMenu():
     print("\nI will ask you about:"
     +"\n> Mouthfeell (or texture)"
     +"\n> Taste (perception)"
-    +"\n> Flavour (smell)")
+    +"\n> Flavour (smell)"
+    +"\nThen I will show you 2 different recommended styles!")
 
     first_input = input("\n[Astringent, body, alcohol?]: ")
     second_input = input("\n[Bitter, sweet, sour, salty?]: ")
     third_input = input("\n[Fruits, hoppy, spices, malty?]: ")
 
     desc = pl.userDesc(first_input, second_input, third_input)
+    
 
     found = False
+    found_bayes = False
 
     if len(desc) > 0:
         for s in styles:
@@ -274,11 +295,20 @@ def fastRecommenderMenu():
                 name = s['Style_name']
                 id = s['Style_id']
                 found = True
-    
-    if found:
-        print(f"\nYour generic style is {name} (ID: {id})")
+    else: id = -1
+
+    bayes = pl.userBayes(id, first_input, second_input, third_input)
+    perc = 100 - bayes[0]['Value']*100
+
+    if id != -1:
+        if found:
+            print(f"\nYour generic style is {name} (ID: {id})")
+            print(f"Recommendation rate: {perc:.2f}%")
+        else:
+            print("\nSorry, I don't know what to recommend...")
     else:
-        print("Sorry, I don't know what to recommend...")
+        print("\nSorry, I don't know what to recommend...")
+    
 
 
 def slowRecommenderMenu():
@@ -351,9 +381,25 @@ def recommendMenuTextEng():
     +"\n 4 -- Return to main menu")
 
 def userManualTextEng():
-    print("\n # --- User Manual --- #"
-    +"\n 1 = [Beer section]"
+    print("\n # ------ User Manual ------ #"
+    +"\n\n [Beer section]"
     +"\n     In this section you can read and search between 3600 worldwide beers."
     +"\n     Maybe there's your favourite beer too!"
-    +"\n 2 = [Style section]"
-    +"\n     In this section you can read and search between 110 worldwide styles.") 
+    +"\n\n [Style section]"
+    +"\n     In this section you can read and search between 110 worldwide styles."
+    +"\n     Maybe there's your favourite style too!"
+    +"\n\n [Recommend me]"
+    +"\n     There are two different recommender:"
+    +"\n     1. Fast recommender: 3 words in, 1 style out"
+    +"\n     2. Slow recommender: 11 numbers in, 1 style out"
+    +"\n     The fast one is less accurate then the second one but is faster!!!")
+
+def styleManualEng():
+    print("\n # ------ Style Manual ------ #"
+    +"\n\n [Mouthfeel]"
+    +"\n     Refers to the physical sensations in the mouth caused by food or drink;"
+    +"\n     is often related to a product's water activity."
+    +"\n\n [Taste]"
+    +"\n     Determines flavors of food and other substances. "
+    +"\n\n [Flavour]"
+    +"\n     Taste of smell.")
