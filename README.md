@@ -1,5 +1,5 @@
-# [ICon] BeerSpotter
-#### Consigliatore di birre in Prolog
+# BeerSpotter
+> Consigliatore di birre in Prolog
 
 ### Gruppo di lavoro
 - [Ester Molinari](https://github.com/burraco135), 716555
