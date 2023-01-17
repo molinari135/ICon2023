@@ -1,5 +1,5 @@
 # BeerSpotter
-> Consigliatore di birre in Prolog
+> Consigliatore di birre in Prolog con interfaccia CLI in Python
 
 ### Gruppo di lavoro
 - [Ester Molinari](https://github.com/burraco135), 716555
@@ -7,7 +7,7 @@
 
 ###### AA 2022-2023
 
-### Istruzioni
+## Istruzioni
 Si consiglia di scaricare il file zip del programma ed estrarlo nella cartella di lavoro di SWI Prolog per evitare conflitti con le directory dei files.
 Per avviare il programma, posizionarsi nella cartella con main.py ed aprire nel terminale, digitare `python main.py` per iniziare.
 Bisogna inoltre lanciare il comando per installare PySwip:
