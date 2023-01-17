@@ -17,9 +17,9 @@ Bisogna inoltre lanciare il comando per installare PySwip:
 ## Introduzione
 |Notebook|Link|
 |---|---|
-|Documentazione|[pdf](https://github.com/burraco135/ICon2023/blob/master/Documentazione/BeerSpotter%20-%20Molinari%2C%20Signorile.pdf)|
-|Notebook Colab|[link](https://github.com/burraco135/ICon2023/blob/master/Documentazione/BeerClassification.ipynb)|
-|Notebook SWISH|[web](https://swish.swi-prolog.org/p/[ICon2023]%20BeerSpotter.swinb) - [pdf](https://github.com/burraco135/ICon2023/blob/master/Documentazione/SWISHBeerSpotter.pdf)|
+|Documentazione relativa al progetto |[pdf](https://github.com/burraco135/ICon2023/blob/master/Documentazione/BeerSpotter%20-%20Molinari%2C%20Signorile.pdf)|
+|Documentazione relativa ad analisi dei dati e apprendimento in Python (Notebook Colab)|[link](https://github.com/burraco135/ICon2023/blob/master/Documentazione/BeerClassification.ipynb)|
+|Documentazione relativa al KBS in Prolog (Notebook SWISH)|[web](https://swish.swi-prolog.org/p/[ICon2023]%20BeerSpotter.swinb) - [pdf](https://github.com/burraco135/ICon2023/blob/master/Documentazione/SWISHBeerSpotter.pdf)|
 
 Il dominio di interesse che abbiamo scelto si basa su un dataset di profili e valutazioni di birre che sfrutta 1.5 milioni di recensioni di birre presenti sul sito BeerAdvocate.
 
